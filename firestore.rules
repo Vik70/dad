@@ -20,7 +20,10 @@ service cloud.firestore {
     match /memories/{id} {
       allow read: if (resource.data.status == "approved" &&
                       resource.data.visibility == "public") || isAdmin();
-      allow create: if request.resource.data.status == "pending" &&
+      // New memories must start with zeroed counters. They may be created as
+      // "pending" (default) or "approved" (when the admin has turned off the
+      // approval requirement in Settings).
+      allow create: if request.resource.data.status in ["pending", "approved"] &&
                        request.resource.data.hearts == 0 &&
                        request.resource.data.rememberCount == 0;
       // Allow the public to bump hearts / rememberCount only (no other fields).

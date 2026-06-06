@@ -119,10 +119,13 @@ export async function getPendingMemories(): Promise<Memory[]> {
 }
 
 export async function submitMemory(input: NewMemoryInput): Promise<Memory> {
+  // When the admin has disabled approval, memories publish immediately.
+  const settings = await getSettings();
+  const status: MemoryStatus = settings.memoriesRequireApproval === false ? "approved" : "pending";
   const base: Omit<Memory, "id"> = {
     ...input,
     imageUrl: input.imageUrl ?? null,
-    status: "pending",
+    status,
     hearts: 0,
     rememberCount: 0,
     createdAt: Date.now(),

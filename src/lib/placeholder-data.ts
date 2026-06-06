@@ -136,6 +136,7 @@ export const placeholderSettings: SiteSettings = {
   heroImageUrl: null,
   storyIntro:
     "A few chapters from a life filled with love, laughter, and quiet kindness. Add your own photos and words to keep telling his story.",
+  memoriesRequireApproval: true,
 };
 
 export const placeholderStory: StoryChapter[] = [

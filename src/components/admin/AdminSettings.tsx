@@ -70,6 +70,36 @@ export default function AdminSettings() {
 
   return (
     <div className="max-w-2xl space-y-5 rounded-2xl bg-cream p-5 shadow-card ring-1 ring-line sm:p-6">
+      <div className="flex items-center justify-between gap-4 rounded-xl bg-cream-deep/60 p-4">
+        <div>
+          <p className="text-sm font-medium text-ink">Require approval for memories</p>
+          <p className="mt-1 text-xs text-muted">
+            {settings.memoriesRequireApproval
+              ? "New memories wait in the Pending queue until you approve them."
+              : "New memories appear on the wall immediately, without approval."}
+          </p>
+        </div>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={settings.memoriesRequireApproval}
+          onClick={() => {
+            const next = !settings.memoriesRequireApproval;
+            set("memoriesRequireApproval", next);
+            updateSettings({ memoriesRequireApproval: next });
+          }}
+          className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${
+            settings.memoriesRequireApproval ? "bg-forest" : "bg-line"
+          }`}
+        >
+          <span
+            className={`absolute top-1 h-5 w-5 rounded-full bg-cream shadow transition-all ${
+              settings.memoriesRequireApproval ? "left-6" : "left-1"
+            }`}
+          />
+        </button>
+      </div>
+
       <div className="rounded-xl bg-cream-deep/60 p-4">
         <p className="text-sm font-medium text-ink">Starter content</p>
         <p className="mt-1 text-xs text-muted">

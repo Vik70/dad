@@ -20,6 +20,7 @@ export default function MemoryForm() {
 
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [autoApproved, setAutoApproved] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -40,7 +41,7 @@ export default function MemoryForm() {
     try {
       let imageUrl: string | null = null;
       if (file) imageUrl = await uploadImage(file, "memories");
-      await submitMemory({
+      const saved = await submitMemory({
         name: name.trim() || "Anonymous",
         relationship: relationship.trim(),
         title: title.trim(),
@@ -49,6 +50,7 @@ export default function MemoryForm() {
         imageUrl,
         visibility,
       });
+      setAutoApproved(saved.status === "approved");
       setDone(true);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -69,12 +71,15 @@ export default function MemoryForm() {
         </div>
         <h3 className="font-serif text-2xl text-maroon">Thank you</h3>
         <p className="mt-3 leading-relaxed text-muted">
-          Your memory has been submitted and will appear once approved.
+          {autoApproved
+            ? "Your memory has been added to the wall. Thank you for sharing."
+            : "Your memory has been submitted and will appear once approved."}
         </p>
         <button
           type="button"
           onClick={() => {
             setDone(false);
+            setAutoApproved(false);
             setName("");
             setRelationship("");
             setTitle("");

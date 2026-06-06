@@ -82,6 +82,8 @@ export interface SiteSettings {
   datesLabel: string;
   heroImageUrl?: string | null;
   storyIntro: string;
+  /** When false, submitted memories are published immediately (no approval). */
+  memoriesRequireApproval: boolean;
 }
 
 export type NewGalleryInput = {
