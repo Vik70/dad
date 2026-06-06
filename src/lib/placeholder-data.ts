@@ -13,11 +13,11 @@ const now = Date.now();
 export const placeholderMemories: Memory[] = [
   {
     id: "m1",
-    name: "Priya Sharma",
-    relationship: "Niece",
+    name: "Parul",
+    relationship: "Wife",
     title: "The best storyteller",
     message:
-      "Every Diwali, Rajesh uncle would gather all of us cousins and tell the same stories — and somehow they got funnier every year. His laugh filled the whole house. I can still hear it.",
+      "Every Diwali, Rajesh uncle would gather all of us and tell the same stories — and somehow they got funnier every year. His laugh filled the whole house. I can still hear it.",
     category: "Family",
     imageUrl: "https://picsum.photos/seed/rajesh-family/900/640",
     visibility: "public",
@@ -237,7 +237,7 @@ export const placeholderGallery: GalleryItem[] = [
     imageUrl: "https://picsum.photos/seed/rajesh-6/800/600",
     caption: "Beach day with the cousins",
     category: "Beach Day",
-    uploadedBy: "Priya",
+    uploadedBy: "Parul",
     createdAt: now - 8 * day,
     status: "approved",
   },
@@ -291,7 +291,7 @@ export const placeholderGallery: GalleryItem[] = [
     imageUrl: "https://picsum.photos/seed/rajesh-12/800/900",
     caption: "Beach sunset, the family favourite",
     category: "Beach Day",
-    uploadedBy: "Priya",
+    uploadedBy: "Parul",
     createdAt: now - 14 * day,
     status: "approved",
   },
