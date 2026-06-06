@@ -16,15 +16,19 @@ service firebase.storage {
       allow read: if true;
     }
 
-    // The public may upload a photo with a memory (images only, max 8MB).
+    // The public may upload photos with a memory or to the gallery
+    // (images only, max 15MB each).
     match /memories/{file} {
-      allow write: if request.resource.size < 8 * 1024 * 1024 &&
+      allow write: if request.resource.size < 15 * 1024 * 1024 &&
+                      request.resource.contentType.matches("image/.*");
+    }
+    match /gallery/{file} {
+      allow write: if request.resource.size < 15 * 1024 * 1024 &&
                       request.resource.contentType.matches("image/.*");
     }
 
-    // Gallery, story, and hero images are managed by admins only.
-    match /gallery/{file} { allow write: if isAdmin(); }
-    match /story/{file}   { allow write: if isAdmin(); }
-    match /hero/{file}    { allow write: if isAdmin(); }
+    // Story and hero images are managed by admins only.
+    match /story/{file} { allow write: if isAdmin(); }
+    match /hero/{file}  { allow write: if isAdmin(); }
   }
 }

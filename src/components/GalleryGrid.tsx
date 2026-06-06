@@ -67,7 +67,9 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-maroon-deep/70 via-maroon-deep/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                <p className="text-sm font-medium text-cream">{item.caption}</p>
+                <p className="text-sm font-medium text-cream">
+                  {item.caption || `Shared by ${item.uploadedBy}`}
+                </p>
                 <p className="text-xs text-cream/70">{item.category}</p>
               </div>
             </motion.button>

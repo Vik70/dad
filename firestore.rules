@@ -45,10 +45,13 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
-    // Gallery: anyone can read approved photos. Only admins manage the gallery.
+    // Gallery: anyone can read approved photos and add new ones (created as
+    // approved so they appear immediately). Editing/deleting is admin-only.
     match /gallery/{id} {
       allow read: if resource.data.status == "approved" || isAdmin();
-      allow create, update, delete: if isAdmin();
+      allow create: if request.resource.data.status == "approved" &&
+                       request.resource.data.keys().hasAll(["imageUrl", "category", "uploadedBy", "status"]);
+      allow update, delete: if isAdmin();
     }
 
     // Story chapters: anyone can read; only admins can edit.

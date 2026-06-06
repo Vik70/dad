@@ -41,7 +41,7 @@ export default function DiyaForm({ onLit }: DiyaFormProps) {
     >
       <div>
         <label className="mb-1.5 block text-sm font-medium text-ink">Your name</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} className={fieldClass} placeholder="e.g. Vik" />
+        <input value={name} onChange={(e) => setName(e.target.value)} className={fieldClass} placeholder="Your name" />
       </div>
       <div>
         <label className="mb-1.5 block text-sm font-medium text-ink">A short message (optional)</label>

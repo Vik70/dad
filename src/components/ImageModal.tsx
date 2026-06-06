@@ -130,7 +130,9 @@ export default function ImageModal({ items, index, onClose, onNavigate }: ImageM
 
             <div className="p-5 sm:p-6">
               <div className="flex items-start justify-between gap-3">
-                <p className="font-serif text-lg text-maroon sm:text-xl">{item.caption}</p>
+                <p className="font-serif text-lg text-maroon sm:text-xl">
+                  {item.caption || "A cherished photo"}
+                </p>
                 {hasMany && (
                   <span className="shrink-0 rounded-full bg-cream-deep px-3 py-1 text-xs text-muted">
                     {index! + 1} / {items.length}

@@ -31,8 +31,9 @@ export default function MemoryForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!name.trim() || !relationship.trim() || !title.trim() || !message.trim()) {
-      setError("Please fill in your name, relationship, title, and memory.");
+    // Everything is optional — just make sure there's *something* to share.
+    if (!file && !name.trim() && !relationship.trim() && !title.trim() && !message.trim()) {
+      setError("Please add a photo or a few words to share.");
       return;
     }
     setSubmitting(true);
@@ -40,7 +41,7 @@ export default function MemoryForm() {
       let imageUrl: string | null = null;
       if (file) imageUrl = await uploadImage(file, "memories");
       await submitMemory({
-        name: name.trim(),
+        name: name.trim() || "Anonymous",
         relationship: relationship.trim(),
         title: title.trim(),
         message: message.trim(),
@@ -99,69 +100,87 @@ export default function MemoryForm() {
       onSubmit={handleSubmit}
       className="mx-auto max-w-xl space-y-5 rounded-3xl bg-cream p-6 shadow-soft ring-1 ring-line sm:p-8"
     >
+      <p className="text-center text-sm text-muted">
+        Everything here is optional — share a photo, a few words, or both.
+      </p>
+
+      {/* Photo first — this is the main thing we want */}
+      <div>
+        <label className="mb-1.5 block text-sm font-medium text-ink">Add a photo</label>
+        <label
+          className="bg-photo-placeholder relative flex min-h-44 cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl ring-1 ring-line transition-shadow hover:shadow-card"
+        >
+          {preview ? (
+            <Image src={preview} alt="Preview" fill className="object-cover" />
+          ) : (
+            <>
+              <Diya size={40} />
+              <span className="font-serif text-lg text-maroon/80">Tap to add a photo</span>
+              <span className="text-xs text-muted">JPG, PNG or HEIC</span>
+            </>
+          )}
+          <input type="file" accept="image/*" onChange={handleFile} className="hidden" />
+        </label>
+        {preview && (
+          <button
+            type="button"
+            onClick={() => {
+              setFile(null);
+              setPreview(null);
+            }}
+            className="mt-2 text-xs font-medium text-maroon hover:underline"
+          >
+            Remove photo
+          </button>
+        )}
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-ink">Your name</label>
-          <input value={name} onChange={(e) => setName(e.target.value)} className={fieldClass} placeholder="e.g. Priya" />
+          <label className="mb-1.5 block text-sm font-medium text-ink">Your name <span className="font-normal text-muted">(optional)</span></label>
+          <input value={name} onChange={(e) => setName(e.target.value)} className={fieldClass} placeholder="Your name" />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-ink">Your relationship to Rajesh</label>
+          <label className="mb-1.5 block text-sm font-medium text-ink">Relationship to Rajesh <span className="font-normal text-muted">(optional)</span></label>
           <input
             value={relationship}
             onChange={(e) => setRelationship(e.target.value)}
             className={fieldClass}
-            placeholder="e.g. Niece, friend, colleague"
+            placeholder="Your relationship to Rajesh"
           />
         </div>
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-ink">Memory title</label>
+        <label className="mb-1.5 block text-sm font-medium text-ink">Title <span className="font-normal text-muted">(optional)</span></label>
         <input value={title} onChange={(e) => setTitle(e.target.value)} className={fieldClass} placeholder="Give your memory a title" />
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-ink">Your memory</label>
+        <label className="mb-1.5 block text-sm font-medium text-ink">A few words <span className="font-normal text-muted">(optional)</span></label>
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          rows={5}
+          rows={4}
           className={fieldClass}
           placeholder="Share a story, a moment, or what Rajesh meant to you…"
         />
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label className="mb-1.5 block text-sm font-medium text-ink">Category</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value as MemoryCategory)}
-            className={fieldClass}
-          >
-            {MEMORY_CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="mb-1.5 block text-sm font-medium text-ink">Photo (optional)</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFile}
-            className="block w-full text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-forest file:px-4 file:py-2 file:text-sm file:font-medium file:text-cream hover:file:opacity-90"
-          />
-        </div>
+      <div>
+        <label className="mb-1.5 block text-sm font-medium text-ink">Category <span className="font-normal text-muted">(optional)</span></label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value as MemoryCategory)}
+          className={fieldClass}
+        >
+          {MEMORY_CATEGORIES.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
       </div>
-
-      {preview && (
-        <div className="relative h-40 w-full overflow-hidden rounded-xl ring-1 ring-line">
-          <Image src={preview} alt="Preview" fill className="object-cover" />
-        </div>
-      )}
 
       <div className="flex items-center justify-between rounded-xl bg-cream-deep/60 px-4 py-3">
         <div>

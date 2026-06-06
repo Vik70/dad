@@ -83,7 +83,7 @@ export default function MemoryCard({ memory, index = 0 }: MemoryCardProps) {
         <div className="relative aspect-[16/10] w-full bg-cream-deep">
           <Image
             src={memory.imageUrl}
-            alt={memory.title}
+            alt={memory.title || `A memory shared by ${memory.name || "a loved one"}`}
             fill
             sizes="(max-width: 768px) 100vw, 400px"
             className="object-cover"
@@ -94,16 +94,20 @@ export default function MemoryCard({ memory, index = 0 }: MemoryCardProps) {
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-3 flex items-center justify-between gap-3">
           <div>
-            <p className="font-medium text-ink">{memory.name}</p>
-            <p className="text-xs text-muted">{memory.relationship}</p>
+            <p className="font-medium text-ink">{memory.name || "Anonymous"}</p>
+            {memory.relationship && <p className="text-xs text-muted">{memory.relationship}</p>}
           </div>
           <span className="rounded-full bg-forest/10 px-3 py-1 text-xs font-medium text-forest">
             {memory.category}
           </span>
         </div>
 
-        <h3 className="font-serif text-xl text-maroon">{memory.title}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/80">{memory.message}</p>
+        {memory.title && <h3 className="font-serif text-xl text-maroon">{memory.title}</h3>}
+        {memory.message && (
+          <p className={`text-sm leading-relaxed text-ink/80 ${memory.title ? "mt-2" : ""}`}>{memory.message}</p>
+        )}
+        {/* keep the card body filling height even with no text */}
+        <div className="flex-1" />
 
         <p className="mt-4 text-xs text-muted">{formatDate(memory.createdAt)}</p>
 
