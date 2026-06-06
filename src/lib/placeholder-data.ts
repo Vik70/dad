@@ -132,7 +132,7 @@ export const placeholderSettings: SiteSettings = {
   subtitle: "A place to remember, honour, and celebrate the life of Rajesh.",
   intro:
     "Rajesh was a husband, father, brother, friend, and the heart of our family. This space is for everyone who loved him to share stories, photos, and memories so his light continues through all of us.",
-  datesLabel: "1958 — 2025",
+  datesLabel: "1960 — 2026",
   heroImageUrl: null,
   storyIntro:
     "A few chapters from a life filled with love, laughter, and quiet kindness. Add your own photos and words to keep telling his story.",

@@ -128,7 +128,7 @@ export default function AdminSettings() {
 
       <div>
         <label className="mb-1.5 block text-sm font-medium text-ink">Dates label</label>
-        <input value={settings.datesLabel} onChange={(e) => set("datesLabel", e.target.value)} className={field} placeholder="e.g. 1958 — 2025" />
+        <input value={settings.datesLabel} onChange={(e) => set("datesLabel", e.target.value)} className={field} placeholder="e.g. 1960 — 2026" />
       </div>
 
       <div>
