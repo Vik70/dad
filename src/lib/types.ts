@@ -18,7 +18,7 @@ export const GALLERY_CATEGORIES = [
   "Friends",
   "Holidays",
   "Mum & Dad",
-  "Vik & Dad",
+  "Purvik & Dad",
   "Bhavik & Dad",
   "Old Photos",
   "Beach Day",

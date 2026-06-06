@@ -15,11 +15,22 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://animated-lily-8a6b1e.netlify.app";
+
+const shareTitle = "Rajesh's Light";
+const shareDescription =
+  "A place for everyone who loved Rajesh to share stories, photos, and memories, and to light a diya in his honour. Keeping his light alive, together.";
+
 export const metadata: Metadata = {
-  title: "Rajesh's Light — A place to remember, honour, and celebrate",
-  description:
-    "A warm digital memorial for Rajesh. Share memories, view photos, light a diya, and help keep his light alive.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Rajesh's Light — A place to remember, honour, and celebrate",
+    template: "%s · Rajesh's Light",
+  },
+  description: shareDescription,
   manifest: "/site.webmanifest",
+  applicationName: shareTitle,
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -27,6 +38,28 @@ export const metadata: Metadata = {
       { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  openGraph: {
+    type: "website",
+    siteName: shareTitle,
+    title: shareTitle,
+    description: shareDescription,
+    url: siteUrl,
+    locale: "en_GB",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 800,
+        alt: "Rajesh's Light — a glowing diya with the words Rajesh's Light",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: shareTitle,
+    description: shareDescription,
+    images: ["/og-image.jpg"],
   },
 };
 

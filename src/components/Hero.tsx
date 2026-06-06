@@ -16,7 +16,7 @@ export default function Hero({
   title = "Rajesh's Light",
   subtitle = "A place to remember, honour, and celebrate the life of Rajesh.",
   heroImageUrl = null,
-  datesLabel = "1958 — 2025",
+  datesLabel = "1960 — 2026",
 }: HeroProps) {
   return (
     <section className="bg-warm-glow relative overflow-hidden">

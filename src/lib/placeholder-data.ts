@@ -108,7 +108,7 @@ export const placeholderComments: Comment[] = [
   {
     id: "c1",
     memoryId: "m1",
-    name: "Vik",
+    name: "Purvik",
     message: "I remember those nights so well. Thank you for writing this.",
     createdAt: now - 1 * day,
   },
@@ -122,13 +122,9 @@ export const placeholderComments: Comment[] = [
 ];
 
 export const placeholderDiyas: Diya[] = [
-  { id: "d1", name: "Vik", message: "Keeping your light alive, Dad.", createdAt: now - 1 * day },
+  { id: "d1", name: "Purvik", message: "Keeping your light alive, Dad.", createdAt: now - 1 * day },
   { id: "d2", name: "Bhavik", message: "Miss you every day.", createdAt: now - 2 * day },
-  { id: "d3", name: "Meena", message: "Forever my love.", createdAt: now - 3 * day },
-  { id: "d4", name: "Priya", message: "Shine on, uncle.", createdAt: now - 4 * day },
-  { id: "d5", name: "Daniel", message: "Thank you for everything.", createdAt: now - 5 * day },
-  { id: "d6", name: "Anita", message: "Saving you a cup of chai.", createdAt: now - 6 * day },
-  { id: "d7", name: "Leela", message: "Be kind first. Always.", createdAt: now - 7 * day },
+
 ];
 
 export const placeholderSettings: SiteSettings = {
@@ -165,7 +161,7 @@ export const placeholderStory: StoryChapter[] = [
     id: "s3",
     year: "Being a dad",
     title: "Fatherhood",
-    text: "To Vik and Bhavik, he was steady, patient, and endlessly proud. He taught by example: work hard, stay humble, and never let a chance to laugh together pass you by.",
+    text: "To Purvik and Bhavik, he was steady, patient, and endlessly proud. He taught by example: work hard, stay humble, and never let a chance to laugh together pass you by.",
     imageUrl: null,
     order: 3,
     createdAt: now - 98 * day,
@@ -203,9 +199,9 @@ export const placeholderGallery: GalleryItem[] = [
   {
     id: "g2",
     imageUrl: "https://picsum.photos/seed/rajesh-2/800/600",
-    caption: "Dad and Vik on the pier",
-    category: "Vik & Dad",
-    uploadedBy: "Vik",
+    caption: "Dad and Purvik on the pier",
+    category: "Purvik & Dad",
+    uploadedBy: "Purvik",
     createdAt: now - 4 * day,
     status: "approved",
   },
@@ -223,7 +219,7 @@ export const placeholderGallery: GalleryItem[] = [
     imageUrl: "https://picsum.photos/seed/rajesh-4/800/700",
     caption: "Mum & Dad, anniversary dinner",
     category: "Mum & Dad",
-    uploadedBy: "Vik",
+    uploadedBy: "Purvik",
     createdAt: now - 6 * day,
     status: "approved",
   },
@@ -277,7 +273,7 @@ export const placeholderGallery: GalleryItem[] = [
     imageUrl: "https://picsum.photos/seed/rajesh-10/800/1000",
     caption: "Holiday in the Lake District",
     category: "Holidays",
-    uploadedBy: "Vik",
+    uploadedBy: "Purvik",
     createdAt: now - 12 * day,
     status: "approved",
   },
