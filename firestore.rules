@@ -1,0 +1,66 @@
+rules_version = '2';
+
+// Security rules for Rajesh's Light.
+//
+// IMPORTANT: replace the emails in isAdmin() with your real admin emails
+// (the same ones you put in ADMIN_EMAILS). These rules are the real security
+// boundary — the in-app admin check is only for showing/hiding UI.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          "purvikbhatt16@gmail.com"
+        ];
+    }
+
+    // Public memories: anyone can read approved + public ones.
+    // Anyone can submit a memory, but only as pending + with zeroed counters.
+    match /memories/{id} {
+      allow read: if (resource.data.status == "approved" &&
+                      resource.data.visibility == "public") || isAdmin();
+      allow create: if request.resource.data.status == "pending" &&
+                       request.resource.data.hearts == 0 &&
+                       request.resource.data.rememberCount == 0;
+      // Allow the public to bump hearts / rememberCount only (no other fields).
+      allow update: if isAdmin() ||
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(["hearts", "rememberCount"]);
+      allow delete: if isAdmin();
+    }
+
+    // Replies: anyone can read and add a reply; only admins can delete.
+    match /comments/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(["memoryId", "name", "message"]);
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Diyas: anyone can read and light one; only admins can delete.
+    match /diyas/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(["name", "message"]);
+      allow update, delete: if isAdmin();
+    }
+
+    // Gallery: anyone can read approved photos. Only admins manage the gallery.
+    match /gallery/{id} {
+      allow read: if resource.data.status == "approved" || isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Story chapters: anyone can read; only admins can edit.
+    match /story/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Site settings: anyone can read; only admins can edit.
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/hooks/useAuth";
 import AdminLogin from "@/components/AdminLogin";
-import AdminMemoryTable from "@/components/AdminMemoryTable";
+import AdminDashboard from "@/components/admin/AdminDashboard";
 import { signOutAdmin } from "@/lib/auth";
 
 export default function AdminPage() {
@@ -70,7 +70,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <AdminMemoryTable />
+      <AdminDashboard />
     </section>
   );
 }

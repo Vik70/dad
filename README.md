@@ -15,7 +15,19 @@ Built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**,
 - **Memory Wall** – approved memories with hearts, replies, and "I remember this too".
 - **Share a Memory** – a friendly form with optional photo upload (saved as `pending`).
 - **Light a Diya** – a glowing wall of messages with a running total.
-- **Admin Dashboard** – protected moderation for memories, gallery, and diyas.
+- **Admin Dashboard** – full content management (see below).
+
+## Admin dashboard (full CMS)
+
+Sign in at `/admin` with an email listed in `ADMIN_EMAILS`. From there you can manage everything without touching code:
+
+- **Pending** – review and approve/reject newly submitted memories.
+- **Memories** – approve, reject, edit (name/relationship/title/text/category), toggle public/private, and delete.
+- **Gallery** – upload new photos (to Firebase Storage) with caption/category, edit captions/categories, approve or hide, and delete.
+- **Replies** – moderate and delete comments left on memories.
+- **Diyas** – view and delete diya messages.
+- **His Story** – add/edit/reorder timeline chapters and upload a photo for each.
+- **Settings** – set the hero photo, memorial name, subtitle, dates, homepage intro, and story intro. Includes a one-click **Load starter content** button to populate a fresh site.
 
 ## Runs out of the box
 
@@ -65,9 +77,33 @@ ADMIN_EMAILS=you@example.com
 - `comments` — `{ memoryId, name, message, createdAt }`
 - `diyas` — `{ name, message, createdAt }`
 - `gallery` — `{ imageUrl, caption, category, uploadedBy, createdAt, status }`
+- `story` — `{ title, text, year, imageUrl, order, createdAt }`
+- `settings/site` (single doc) — `{ name, subtitle, intro, datesLabel, heroImageUrl, storyIntro }`
 
 Public users see only memories where `status == "approved"` and
 `visibility == "public"`, and gallery items where `status == "approved"`.
+
+### 3. Deploy security rules and indexes
+
+This repo ships ready-to-use rules. **Edit the admin email(s)** inside
+`firestore.rules` and `storage.rules` to match your `ADMIN_EMAILS`, then deploy:
+
+```bash
+firebase deploy --only firestore:rules,firestore:indexes,storage
+```
+
+- `firestore.rules` — public can read approved/public content and submit; only admins moderate.
+- `storage.rules` — anyone can submit a memory photo (≤8MB image); gallery/story/hero uploads are admin-only.
+- `firestore.indexes.json` — the composite index for the public memories query.
+
+> The admin check inside the app only controls which UI is shown. The security
+> rules are the real boundary, so keep the admin emails in the rules in sync.
+
+### 4. Populate your site
+
+Sign in to `/admin`, open **Settings**, and click **Load starter content** to
+fill empty sections with warm placeholder data you can then edit, or just start
+adding your own memories, photos, and story chapters.
 
 ## Deploying to Firebase Hosting
 

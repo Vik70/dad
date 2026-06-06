@@ -65,6 +65,41 @@ export interface GalleryItem {
   status: MemoryStatus;
 }
 
+export interface StoryChapter {
+  id: string;
+  title: string;
+  text: string;
+  year?: string;
+  imageUrl?: string | null;
+  order: number;
+  createdAt: number;
+}
+
+export interface SiteSettings {
+  name: string;
+  subtitle: string;
+  intro: string;
+  datesLabel: string;
+  heroImageUrl?: string | null;
+  storyIntro: string;
+}
+
+export type NewGalleryInput = {
+  imageUrl: string;
+  caption: string;
+  category: GalleryCategory;
+  uploadedBy: string;
+  status?: MemoryStatus;
+};
+
+export type NewStoryInput = {
+  title: string;
+  text: string;
+  year?: string;
+  imageUrl?: string | null;
+  order: number;
+};
+
 export type NewMemoryInput = {
   name: string;
   relationship: string;

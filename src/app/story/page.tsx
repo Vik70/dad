@@ -1,50 +1,39 @@
-import SectionTitle from "@/components/SectionTitle";
-import Timeline, { type TimelineChapter } from "@/components/Timeline";
+"use client";
 
-const chapters: TimelineChapter[] = [
-  {
-    year: "The beginning",
-    title: "Early Life",
-    text: "Rajesh grew up surrounded by warmth and laughter, the kind of childhood that shapes a gentle, generous heart. Even as a boy he had a way of making everyone around him feel they belonged.",
-    hasImage: true,
-  },
-  {
-    year: "His own family",
-    title: "Family",
-    text: "When he built his own family, he poured everything into it. Sunday meals, long stories, and an open door for anyone who needed one — home was wherever Rajesh was.",
-    hasImage: true,
-  },
-  {
-    year: "Being a dad",
-    title: "Fatherhood",
-    text: "To Vik and Bhavik, he was steady, patient, and endlessly proud. He taught by example: work hard, stay humble, and never let a chance to laugh together pass you by.",
-    hasImage: true,
-  },
-  {
-    year: "What he stood for",
-    title: "Work & Values",
-    text: "He believed in doing things properly and treating everyone with respect. Colleagues remember a man who led quietly, helped freely, and always kept his word.",
-    hasImage: false,
-  },
-  {
-    year: "Forever",
-    title: "Moments We'll Always Remember",
-    text: "The chai on the porch. The terrible-wonderful jokes. The way he made ordinary days feel like a gift. These are the moments that keep his light alive in all of us.",
-    hasImage: true,
-  },
-];
+import { useEffect, useState } from "react";
+import SectionTitle from "@/components/SectionTitle";
+import Timeline from "@/components/Timeline";
+import { getStory, getSettings } from "@/lib/firestore";
+import { placeholderSettings } from "@/lib/placeholder-data";
+import type { StoryChapter, SiteSettings } from "@/lib/types";
 
 export default function StoryPage() {
+  const [chapters, setChapters] = useState<StoryChapter[]>([]);
+  const [settings, setSettings] = useState<SiteSettings>(placeholderSettings);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getStory().then((c) => {
+      setChapters(c);
+      setLoading(false);
+    });
+    getSettings().then(setSettings);
+  }, []);
+
   return (
     <div className="bg-warm-glow">
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <SectionTitle
           eyebrow="His Story"
           title="The life of Rajesh"
-          subtitle="A few chapters from a life filled with love, laughter, and quiet kindness. Add your own photos and words to keep telling his story."
+          subtitle={settings.storyIntro}
         />
-        <div className="mt-14">
-          <Timeline chapters={chapters} />
+        <div className="mt-12 sm:mt-14">
+          {loading ? (
+            <p className="py-12 text-center text-muted">Loading his story…</p>
+          ) : (
+            <Timeline chapters={chapters} />
+          )}
         </div>
       </section>
     </div>

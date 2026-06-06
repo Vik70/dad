@@ -1,10 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Diya from "./Diya";
 
-export default function Hero() {
+interface HeroProps {
+  title?: string;
+  subtitle?: string;
+  heroImageUrl?: string | null;
+  datesLabel?: string;
+}
+
+export default function Hero({
+  title = "Rajesh's Light",
+  subtitle = "A place to remember, honour, and celebrate the life of Rajesh.",
+  heroImageUrl = null,
+  datesLabel = "1958 — 2025",
+}: HeroProps) {
   return (
     <section className="bg-warm-glow relative overflow-hidden">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:py-28">
@@ -22,18 +35,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="font-serif text-5xl font-semibold leading-tight text-maroon sm:text-6xl lg:text-7xl"
+            className="font-serif text-[2.5rem] font-semibold leading-tight text-maroon sm:text-6xl lg:text-7xl"
           >
-            Rajesh&apos;s Light
+            {title}
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted lg:mx-0"
+            className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg lg:mx-0"
           >
-            A place to remember, honour, and celebrate the life of Rajesh.
+            {subtitle}
           </motion.p>
 
           <motion.div
@@ -64,20 +77,33 @@ export default function Hero() {
           className="relative"
         >
           <div className="bg-photo-placeholder relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-soft ring-1 ring-line">
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
-              <Diya size={56} />
-              <p className="px-8 font-serif text-2xl text-maroon/80">
-                A favourite photo of Rajesh
-              </p>
-              <p className="text-xs uppercase tracking-widest text-muted">
-                Add hero image here
-              </p>
+            {heroImageUrl ? (
+              <Image
+                src={heroImageUrl}
+                alt={title}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 500px"
+                className="object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
+                <Diya size={56} />
+                <p className="px-8 font-serif text-2xl text-maroon/80">
+                  A favourite photo of Rajesh
+                </p>
+                <p className="text-xs uppercase tracking-widest text-muted">
+                  Add a hero image from the admin dashboard
+                </p>
+              </div>
+            )}
+          </div>
+          {datesLabel && (
+            <div className="absolute -bottom-5 -left-3 rounded-2xl bg-cream px-4 py-3 shadow-card ring-1 ring-line sm:-left-5 sm:px-5 sm:py-4">
+              <p className="font-serif text-base text-forest sm:text-lg">{datesLabel}</p>
+              <p className="text-xs text-muted">Forever in our hearts</p>
             </div>
-          </div>
-          <div className="absolute -bottom-5 -left-5 hidden rounded-2xl bg-cream px-5 py-4 shadow-card ring-1 ring-line sm:block">
-            <p className="font-serif text-lg text-forest">1958 — 2025</p>
-            <p className="text-xs text-muted">Forever in our hearts</p>
-          </div>
+          )}
         </motion.div>
       </div>
     </section>

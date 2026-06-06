@@ -1,0 +1,19 @@
+{
+  "name": "Rajesh's Light",
+  "short_name": "Rajesh's Light",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#6e1a2b",
+  "background_color": "#fbf7f0",
+  "display": "standalone"
+}

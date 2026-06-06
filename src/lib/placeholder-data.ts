@@ -1,4 +1,11 @@
-import type { Memory, Comment, Diya, GalleryItem } from "./types";
+import type {
+  Memory,
+  Comment,
+  Diya,
+  GalleryItem,
+  StoryChapter,
+  SiteSettings,
+} from "./types";
 
 const day = 24 * 60 * 60 * 1000;
 const now = Date.now();
@@ -122,6 +129,65 @@ export const placeholderDiyas: Diya[] = [
   { id: "d5", name: "Daniel", message: "Thank you for everything.", createdAt: now - 5 * day },
   { id: "d6", name: "Anita", message: "Saving you a cup of chai.", createdAt: now - 6 * day },
   { id: "d7", name: "Leela", message: "Be kind first. Always.", createdAt: now - 7 * day },
+];
+
+export const placeholderSettings: SiteSettings = {
+  name: "Rajesh's Light",
+  subtitle: "A place to remember, honour, and celebrate the life of Rajesh.",
+  intro:
+    "Rajesh was a husband, father, brother, friend, and the heart of our family. This space is for everyone who loved him to share stories, photos, and memories so his light continues through all of us.",
+  datesLabel: "1958 — 2025",
+  heroImageUrl: null,
+  storyIntro:
+    "A few chapters from a life filled with love, laughter, and quiet kindness. Add your own photos and words to keep telling his story.",
+};
+
+export const placeholderStory: StoryChapter[] = [
+  {
+    id: "s1",
+    year: "The beginning",
+    title: "Early Life",
+    text: "Rajesh grew up surrounded by warmth and laughter, the kind of childhood that shapes a gentle, generous heart. Even as a boy he had a way of making everyone around him feel they belonged.",
+    imageUrl: null,
+    order: 1,
+    createdAt: now - 100 * day,
+  },
+  {
+    id: "s2",
+    year: "His own family",
+    title: "Family",
+    text: "When he built his own family, he poured everything into it. Sunday meals, long stories, and an open door for anyone who needed one — home was wherever Rajesh was.",
+    imageUrl: null,
+    order: 2,
+    createdAt: now - 99 * day,
+  },
+  {
+    id: "s3",
+    year: "Being a dad",
+    title: "Fatherhood",
+    text: "To Vik and Bhavik, he was steady, patient, and endlessly proud. He taught by example: work hard, stay humble, and never let a chance to laugh together pass you by.",
+    imageUrl: null,
+    order: 3,
+    createdAt: now - 98 * day,
+  },
+  {
+    id: "s4",
+    year: "What he stood for",
+    title: "Work & Values",
+    text: "He believed in doing things properly and treating everyone with respect. Colleagues remember a man who led quietly, helped freely, and always kept his word.",
+    imageUrl: null,
+    order: 4,
+    createdAt: now - 97 * day,
+  },
+  {
+    id: "s5",
+    year: "Forever",
+    title: "Moments We'll Always Remember",
+    text: "The chai on the porch. The terrible-wonderful jokes. The way he made ordinary days feel like a gift. These are the moments that keep his light alive in all of us.",
+    imageUrl: null,
+    order: 5,
+    createdAt: now - 96 * day,
+  },
 ];
 
 export const placeholderGallery: GalleryItem[] = [

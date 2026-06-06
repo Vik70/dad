@@ -8,23 +8,31 @@ import Hero from "@/components/Hero";
 import SectionTitle from "@/components/SectionTitle";
 import MemoryCard from "@/components/MemoryCard";
 import Diya from "@/components/Diya";
-import { getApprovedMemories, getGallery, getDiyas } from "@/lib/firestore";
-import type { Memory, GalleryItem } from "@/lib/types";
+import { getApprovedMemories, getGallery, getDiyas, getSettings } from "@/lib/firestore";
+import { placeholderSettings } from "@/lib/placeholder-data";
+import type { Memory, GalleryItem, SiteSettings } from "@/lib/types";
 
 export default function HomePage() {
   const [memories, setMemories] = useState<Memory[]>([]);
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [diyaCount, setDiyaCount] = useState(0);
+  const [settings, setSettings] = useState<SiteSettings>(placeholderSettings);
 
   useEffect(() => {
     getApprovedMemories().then((m) => setMemories(m.slice(0, 3)));
     getGallery().then((g) => setGallery(g.slice(0, 6)));
     getDiyas().then((d) => setDiyaCount(d.length));
+    getSettings().then(setSettings);
   }, []);
 
   return (
     <>
-      <Hero />
+      <Hero
+        title={settings.name}
+        subtitle={settings.subtitle}
+        heroImageUrl={settings.heroImageUrl}
+        datesLabel={settings.datesLabel}
+      />
 
       {/* A life surrounded by love */}
       <section className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-20">
@@ -36,9 +44,7 @@ export default function HomePage() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-6 text-lg leading-relaxed text-ink/80"
         >
-          Rajesh was a husband, father, brother, friend, and the heart of our
-          family. This space is for everyone who loved him to share stories,
-          photos, and memories so his light continues through all of us.
+          {settings.intro}
         </motion.p>
       </section>
 

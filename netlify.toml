@@ -1,0 +1,8 @@
+# Netlify configuration for Rajesh's Light.
+# The app is exported as a static site (see next.config.ts: output "export"),
+# which Netlify serves from the "out" directory. Next.js generates one HTML
+# file per route plus a 404.html, which Netlify serves automatically.
+
+[build]
+  command = "npm run build"
+  publish = "out"

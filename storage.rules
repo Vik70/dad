@@ -1,0 +1,30 @@
+rules_version = '2';
+
+// Storage rules for Rajesh's Light uploads (memory photos, gallery, story, hero).
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          "purvikbhatt16@gmail.com"
+        ];
+    }
+
+    // Anyone can view images.
+    match /{allPaths=**} {
+      allow read: if true;
+    }
+
+    // The public may upload a photo with a memory (images only, max 8MB).
+    match /memories/{file} {
+      allow write: if request.resource.size < 8 * 1024 * 1024 &&
+                      request.resource.contentType.matches("image/.*");
+    }
+
+    // Gallery, story, and hero images are managed by admins only.
+    match /gallery/{file} { allow write: if isAdmin(); }
+    match /story/{file}   { allow write: if isAdmin(); }
+    match /hero/{file}    { allow write: if isAdmin(); }
+  }
+}
